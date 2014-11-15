@@ -17,6 +17,23 @@ int irF, irL, irR, irB;
 //Button inputs
 int inSkype;
 
+int state = 1;
+
+boolean personFound()
+{
+  if ((irF > 0 || irB > 0) && (irL > 0 || irR > 0)) return true;
+}
+
+// ********************** TBD
+void turnLeft()
+{
+  
+}
+
+// ********************** TBD
+void turnRight()
+{
+}
 
 
 
@@ -24,10 +41,36 @@ int inSkype;
 // the loop routine runs over and over again forever:
 void loop() {
   
-  // Get inputs
+  // **************  Get inputs
   getXzInputs();
   getIrInputs();
   //getButtonInput();   // ****** Add code for Skype
+  // **************
+  
+  // **************  Get inputs
+  
+  
+    switch (state)
+  {
+    case 1: // find
+      if (personFound()) state = 2;
+      else 
+      {
+        if (irL > irR) turnLeft();
+        else turnRight();
+      }
+      
+      break;
+     case 2: //follow
+       
+     
+       break;
+     default:
+       break;
+  
+  }
+  
+
 
   
   //
