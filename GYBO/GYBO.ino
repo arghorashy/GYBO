@@ -6,7 +6,7 @@
 byte x,z,g;
 
 //IR inputs
-int irF, irL, irR, irB;
+int irF, irL, irR;
 
 //Button inputs
 int inSkype;
@@ -31,7 +31,7 @@ int BIN2 = 12; //Direction
 int state = 1;
 int sct = 40; //sensorComparisonTolerance
 int dir;      // direction
-int sp;
+int sp;       //speed
 
 
 // the setup routine runs once when you press reset:
@@ -52,12 +52,7 @@ void setup() {
 }
 
 
-boolean personFound()
-{
-  //if ((irF > 0 || irB > 0) && (irL > 0 || irR > 0)) return true;
-  if ((irF > 0) && (irL > 0 || irR > 0)) return true;
-}
-
+// For debugging
 void irOut()
 {
   Serial.print(irL);
@@ -70,7 +65,17 @@ void irOut()
   Serial.println("");
 }
 
-// -1 -> left; 0 -> forward; 1 -> right
+boolean personFound()
+{
+  //if ((irF > 0 || irB > 0) && (irL > 0 || irR > 0)) return true;
+  if ((irF > 0) && (irL > 0 || irR > 0)) return true;
+}
+
+
+// If no significant IR, turn right
+// If you see IR, but not directly in front, turn in the appropriate direction
+// If the IR is in front, move forward, unless it reaches a certain intensity (close enough)
+// -1 -> left; 0 -> forward; 1 -> right; 5 -> stop
 int followDirection()
 {
   
@@ -155,11 +160,11 @@ void loop() {
          else if (g == 2) state = 4;
          else if (g == 3) state = 2;
          break;
-      case 3: // pause
+      case 3: // pause and wait to be summoned
         stopMvt();
         if (g == 3) state = 2;
         break;
-      case 4: // go left
+      case 4: // go left (out of the way) and wait to be summoned
         turnLeft();
         delay(2000);
         goForward();
@@ -167,7 +172,7 @@ void loop() {
         state = 3;
         
         break;
-      case 5: // go right
+      case 5: // go right (out of the way) and wait to be summoned
         turnRight();
         delay(2000);
         goForward();
@@ -183,28 +188,5 @@ void loop() {
 
 
   
-  //
-//  delay(1);
-//  int sensorValue = analogRead(A2);
-//  timeCounter = timeCounter + 1;
-  
-
-
-//  if (timeCounter > 1000) 
-//  {
-//    Serial.println(dipCounter);
-//    timeCounter = 0;
-//    dipCounter = 0;
-//    sum = 0;
-//  }
-//  else if (sensorValue > 890)
-//  {
-//    dipCounter = dipCounter + 1;
-//    sum = sum + sensorValue;
-//  }
-  
-  
-//    Serial.println(sensorValue);
-   // delay(1);        // delay in between reads for stability
 }
 

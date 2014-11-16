@@ -1,0 +1,18 @@
+
+Introduction
+------------
+This is the code for the arduino in a robot designed during the 2014 Get Your Bot On Hackathon.
+
+The theme of the Hackathon was assistive technologies, but as our main interest was to get our hands dirty in the mechanical and electrical design, we picked a fun, but contrived project.  
+
+Idea
+----
+The overall idea was to make a robot that could follow an elderly person with a computer.  The computer could detect if the person fell and contact health services or family.  The robot was also intended to respond to simple gesture commands so that its following behaviour could be controlled and so that other features (such as activation of Skype (for contacting loved one) or Siri) could be requested.
+
+What was built...
+-----------------
+Ultimately, the robot consists of a flat foam board chassis, strengthened with metal "Mechano" pieces.  The front rubber wheels are driven by geared motors controlled through an H-Bridge, by an Arduino.  On the back, caster wheels are used so the robot could turn in place.  Three IR transistors are mounted on the front of the robot and would detect and follow IR emitting anklet worn by the user.  
+
+A 1.3-metre tall pole stands at the back of the foam board chassis and holds a XZ sensor just above waist height.  Swipe gestures tell the robot to turn left or right, move out of the way and stop following.  Natural stop and follow gestures are also understood by the robot. 
+
+The pole should have also featured a push button to activate Skype, but there was no time to implement this.  Nonetheless, a laptop, for Skype, sits on the flat foam board.
