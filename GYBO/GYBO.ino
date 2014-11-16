@@ -31,6 +31,7 @@ int BIN2 = 12; //Direction
 int state = 1;
 int sct = 40; //sensorComparisonTolerance
 int dir;      // direction
+int sp;
 
 
 // the setup routine runs once when you press reset:
@@ -57,33 +58,50 @@ boolean personFound()
   if ((irF > 0) && (irL > 0 || irR > 0)) return true;
 }
 
-// -1 -> left; 0 -> forward; 1 -> right, 5 -> stop
+void irOut()
+{
+  Serial.print(irL);
+  Serial.print(",");
+  Serial.print(irF);
+  Serial.print(",");
+  Serial.print(irR);
+  Serial.print(",");
+  Serial.print(g);
+  Serial.println("");
+}
+
+// -1 -> left; 0 -> forward; 1 -> right
 int followDirection()
 {
   
-  if (irF - irL > sct && irF - irR > sct && abs(irL - irR) < sct) 
-  {  
-    if (irF > 500)
-    {
-      return 5;
-    }
-    else
-    { // If you know he is forward, go forward
-      return 0;
-    }
+  if (irF - irL > sct && irF - irR > sct && abs(irL - irR) < sct*3) 
+  {  // If you know he is forward, go forward
+     Serial.print("Forward: ");
+     irOut();
+    return 0;
   }
-  if (irL - irR > sct)
+  else if (irL - irR > sct)
   {  // If you know he is left, go left
+     Serial.print("Left: ");
+     irOut();
     return -1;
   }
-  else return 1;  // if neither left nor right (or don't know know where he is), turn right
+  else if (irR - irL > sct)
+  {
+     Serial.print("Right: ");
+     irOut();
+    return 1; 
+  }
+  else 
+  {
+    Serial.print("Lost: ");
+    irOut();
+    return 1;  // if neither left nor right (or don't know know where he is), turn right
+  }
+  
 
 
 }
-
-
-
-
 
 // the loop routine runs over and over again forever:
 void loop() {
@@ -91,6 +109,7 @@ void loop() {
   // **************  Get inputs
   getXzInputs();
   getIrInputs();
+  sp = analogRead(A0);
   //getButtonInput();   // ****** Add code for Skype
   // **************
   
@@ -114,16 +133,15 @@ void loop() {
          
          if (dir == -1) turnLeft();
          else if (dir == 1) turnRight();   
-         else if (dir == 0) goForward();
-         else if (dir == 5) stopMvt();
+         else if (dir == 0) goForward(); 
          
 //       if (! personFound()) state = 1;
 //       else
 
          // Check XZ/Buttons
          if (g == 8) state = 3;
-         //else if (g == 1) state = 4;
-         //else if (g == 2) state = 5;
+         else if (g == 1) state = 4;
+         else if (g == 2) state = 5;
          else if (g == 3) state = 2;
          break;
       case 3: // pause
@@ -131,14 +149,20 @@ void loop() {
         if (g == 3) state = 2;
         break;
       case 4: // go left
+        turnLeft();
+        delay(4000);
+        goForward();
+        delay(4000);
+        state = 3;
+        
         break;
       case 5: // go right
-        break;
-       
-
-       
-       
-     
+        turnRight();
+        delay(4000);
+        goForward();
+        delay(4000);
+        state = 3;
+  
        break;
      default:
        break;
