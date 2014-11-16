@@ -66,9 +66,9 @@ void getXzInputs()
 
 void getIrInputs()
 {
-    irF = analogRead(A3)-100;
-    irL = analogRead(A1) - irF /3;
-    irR = analogRead(A2);
+    irF = analogRead(A3)  -80; //-sp /3 ;
+    irL = analogRead(A1) - irF /3.5 ;//-sp /7;
+    irR = analogRead(A2) ;
   //  irB += analogRead(A3);  
 }
 

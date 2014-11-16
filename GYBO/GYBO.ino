@@ -74,7 +74,7 @@ void irOut()
 int followDirection()
 {
   
-  if (irF - irL > sct && irF - irR > sct && abs(irL - irR) < sct) 
+  if (irF - irL > sct && irF - irR > sct && abs(irL - irR) < sct*10000) 
   {  
     if (irF > 500)
     {
@@ -119,7 +119,7 @@ void loop() {
   // **************  Get inputs
   getXzInputs();
   getIrInputs();
-  sp = analogRead(A0);
+  sp = 800 ;//analogRead(A0);
   //getButtonInput();   // ****** Add code for Skype
   // **************
   
@@ -151,8 +151,8 @@ void loop() {
 
          // Check XZ/Buttons
          if (g == 8) state = 3;
-         else if (g == 1) state = 4;
-         else if (g == 2) state = 5;
+         else if (g == 1) state = 5;
+         else if (g == 2) state = 4;
          else if (g == 3) state = 2;
          break;
       case 3: // pause
@@ -161,17 +161,17 @@ void loop() {
         break;
       case 4: // go left
         turnLeft();
-        delay(4000);
+        delay(2000);
         goForward();
-        delay(4000);
+        delay(2000);
         state = 3;
         
         break;
       case 5: // go right
         turnRight();
-        delay(4000);
+        delay(2000);
         goForward();
-        delay(4000);
+        delay(2000);
         state = 3;
   
        break;
