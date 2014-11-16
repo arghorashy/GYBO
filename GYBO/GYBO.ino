@@ -74,12 +74,18 @@ void irOut()
 int followDirection()
 {
   
-  if (irF - irL > sct && irF - irR > sct && abs(irL - irR) < sct*3) 
-  {  // If you know he is forward, go forward
-     Serial.print("Forward: ");
-     irOut();
-    return 0;
+  if (irF - irL > sct && irF - irR > sct && abs(irL - irR) < sct) 
+  {  
+    if (irF > 500)
+    {
+      return 5;
+    }
+    else
+    { // If you know he is forward, go forward
+      return 0;
+    }
   }
+
   else if (irL - irR > sct)
   {  // If you know he is left, go left
      Serial.print("Left: ");
