@@ -1,13 +1,6 @@
 #include <Servo.h>
 #include <Wire.h>
 
-// the setup routine runs once when you press reset:
-void setup() {
-  Serial.begin(9600);
-  Wire.begin();
-
-}
-
 // ************************* INPUTS 
 // XZ inputs
 byte x,z,g;
@@ -18,10 +11,45 @@ int irF, irL, irR, irB;
 //Button inputs
 int inSkype;
 
+// ************************* CONTROL VARIABLES
+//motor A connected between A01 and A02
+//motor B connected between B01 and B02
+
+int STBY = 10; //standby
+
+//Motor A
+int PWMA = 3; //Speed control 
+int AIN1 = 9; //Direction
+int AIN2 = 8; //Direction
+
+//Motor B
+int PWMB = 5; //Speed control
+int BIN1 = 11; //Direction
+int BIN2 = 12; //Direction
+
 // ************************* OTHER CRAP
 int state = 1;
 int sct = 40; //sensorComparisonTolerance
 int dir;      // direction
+
+
+// the setup routine runs once when you press reset:
+void setup() {
+  
+  pinMode(STBY, OUTPUT);
+
+  pinMode(PWMA, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  
+  pinMode(PWMB, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  
+  Serial.begin(9600);
+  Wire.begin();
+}
+
 
 boolean personFound()
 {
@@ -46,26 +74,6 @@ int followDirection()
 
 }
 
-// ********************** TBD
-void turnLeft()
-{
-  
-}
-
-// ********************** TBD
-void turnRight()
-{
-}
-
-// ********************** TBD
-void goForward()
-{
-}
-
-// ********************** TBD
-void stopMvt()
-{
-}
 
 
 
