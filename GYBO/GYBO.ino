@@ -78,10 +78,12 @@ int followDirection()
   {  
     if (irF > 500)
     {
+      Serial.print("Stop: ");
       return 5;
     }
     else
     { // If you know he is forward, go forward
+      Serial.print("Forward: ");
       return 0;
     }
   }
@@ -140,6 +142,7 @@ void loop() {
          if (dir == -1) turnLeft();
          else if (dir == 1) turnRight();   
          else if (dir == 0) goForward(); 
+         else if (dir == 5) stopMvt(); 
          
 //       if (! personFound()) state = 1;
 //       else
