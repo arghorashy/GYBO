@@ -1,22 +1,24 @@
 
+
+
 void turnLeft()
 {
-  setMotorValues(1, 1022, 1);
-  setMotorValues(2, 1022, 0);
+  setMotorValues(1, sp, 0);
+  setMotorValues(2, sp, 1);
 }
 
 
 void turnRight()
 {
-  setMotorValues(1, 1022, 0);
-  setMotorValues(2, 1022, 1);
+  setMotorValues(1, sp, 1);
+  setMotorValues(2, sp, 0);
 }
 
 
 void goForward()
 {
-  setMotorValues(1, 1022, 1);
-  setMotorValues(2, 1022, 1);
+  setMotorValues(1, sp, 0);
+  setMotorValues(2, sp, 0);
 }
 
 

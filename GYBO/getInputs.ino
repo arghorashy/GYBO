@@ -25,43 +25,51 @@ void getXzInputs()
     g = Wire.read();
   }
   
-  Serial.print(x);
-  Serial.print(", ");
-  Serial.print(z);
+  //Serial.print(x);
+  //Serial.print(", ");
+  //Serial.print(z);
   
   if (g != 0) {
     Serial.print(" gesture ");
-    Serial.print(g);
+    Serial.println(g);
   }
   
-  Serial.println(".");
+  //Serial.println(".");
   
 }
 
+//void getIrInputs()
+//{
+//  int counter = 0;
+//  int maxi = 20;
+//  
+//  irF += 0;
+//  irL += 0;
+//  irR += 0;
+//  irB += 0;
+//  
+//  while (counter < maxi)
+//  {
+//    counter++;
+//    irF += analogRead(A3);
+//    irL += analogRead(A1);
+//    irR += analogRead(A2);
+//  //  irB += analogRead(A3);
+//  }
+//    irF /= maxi;
+//    irL /= maxi;
+//    irR /= maxi;
+//    irB /= maxi;
+//  
+//  
+//}
+
 void getIrInputs()
 {
-  int counter = 0;
-  int maxi = 20;
-  
-  irF += 0;
-  irL += 0;
-  irR += 0;
-  irB += 0;
-  
-  while (counter < maxi)
-  {
-    counter++;
-    irF += analogRead(A0);
-    irL += analogRead(A1);
-    irR += analogRead(A2);
-    irB += analogRead(A3);
-  }
-    irF /= maxi;
-    irL /= maxi;
-    irR /= maxi;
-    irB /= maxi;
-  
-  
+    irF = analogRead(A3)-100;
+    irL = analogRead(A1) - irF /3;
+    irR = analogRead(A2);
+  //  irB += analogRead(A3);  
 }
 
 // ************************ Add for Skype
